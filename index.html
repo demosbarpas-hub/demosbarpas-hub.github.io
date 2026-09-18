@@ -9,11 +9,20 @@
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-green: #2e7d32; /* Friendly Emerald/Forest Green */
+            --dark-green: #1b5e20;    /* Deep Green for hover states and footer */
+            --light-green: #e8f5e9;   /* Soft Mint for badges */
+            --text-dark: #2b2b2b;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            color: #2b2b2b;
+            color: var(--text-dark);
             background-color: #f8f9fa;
         }
+
+        /* Hero Section */
         .hero-section {
             padding: 80px 0;
             background-color: #ffffff;
@@ -21,37 +30,76 @@
         }
         .headshot-img {
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 24px rgba(46, 125, 50, 0.15); /* Soft green shadow */
             max-width: 100%;
             height: auto;
         }
+
+        /* Typography */
         .section-title {
             font-weight: 700;
             margin-bottom: 40px;
-            color: #1a1a1a;
+            color: var(--dark-green);
         }
+        .text-highlight {
+            color: var(--primary-green);
+        }
+
+        /* Buttons */
+        .btn-green {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            border: 2px solid var(--primary-green);
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-green:hover {
+            background-color: var(--dark-green);
+            border-color: var(--dark-green);
+            color: #ffffff;
+        }
+        .btn-outline-green {
+            background-color: transparent;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-outline-green:hover {
+            background-color: var(--primary-green);
+            color: #ffffff;
+        }
+
+        /* Project Cards */
         .project-card {
             border: none;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
             height: 100%;
+            border-top: 4px solid transparent;
         }
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            box-shadow: 0 12px 24px rgba(46, 125, 50, 0.1);
+            border-top: 4px solid var(--primary-green);
         }
+
+        /* Skills */
         .skill-badge {
             font-size: 0.9rem;
-            padding: 8px 12px;
-            margin: 4px;
-            background-color: #e9ecef;
-            color: #333;
+            padding: 8px 14px;
+            margin: 5px;
+            background-color: var(--light-green);
+            color: var(--dark-green);
             border-radius: 20px;
-            font-weight: 500;
+            font-weight: 600;
+            display: inline-block;
         }
+
+        /* Footer */
         .footer {
-            background-color: #1a1a1a;
+            background-color: var(--dark-green);
             color: #ffffff;
             padding: 30px 0;
             text-align: center;
@@ -66,7 +114,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-7 order-2 order-lg-1 mt-5 mt-lg-0">
                     <h1 class="display-4 fw-bold">Demos Barpas</h1>
-                    <h2 class="h3 text-muted mb-4">Hardware Engineer & Systems Architect</h2>
+                    <h2 class="h3 text-muted mb-4"><span class="text-highlight">Hardware Engineer</span> & Systems Architect</h2>
                     <p class="lead mb-4">
                         Bridging the gap between physical ASIC design and full-stack software deployment. 
                         I specialize in RTL architecture, digital physical design, and hardware-software co-design. 
@@ -74,8 +122,8 @@
                         full-stack platforms for civil infrastructure, I build systems that scale from the logic gate to the web browser.
                     </p>
                     <div>
-                        <a href="https://github.com/demosbarpas-hub" target="_blank" class="btn btn-dark btn-lg me-3">View GitHub</a>
-                        <a href="https://linkedin.com/in/demosbarpas" target="_blank" class="btn btn-outline-primary btn-lg">Connect on LinkedIn</a>
+                        <a href="https://github.com/demosbarpas-hub" target="_blank" class="btn btn-green btn-lg me-3 mb-2">View GitHub</a>
+                        <a href="https://linkedin.com/in/demosbarpas" target="_blank" class="btn btn-outline-green btn-lg mb-2">Connect on LinkedIn</a>
                     </div>
                 </div>
                 <div class="col-lg-5 order-1 order-lg-2 text-center">
@@ -114,7 +162,7 @@
                         <p><strong>Tech Highlight:</strong> Designed custom logic trees (Mod 5, 9, 14, 15) and routed standard cells across 45nm and 7nm (ASAP7) nodes, achieving 100% formal equivalence.</p>
                         <p><strong>Tech Stack:</strong> VHDL, Cadence Genus, Innovus, LEC, Xcelium</p>
                         <div class="mt-auto">
-                            <a href="https://github.com/demosbarpas-hub/vlsi-modulo-adders-asic" target="_blank" class="btn btn-sm btn-outline-dark">View on GitHub</a>
+                            <a href="https://github.com/demosbarpas-hub/vlsi-modulo-adders-asic" target="_blank" class="btn btn-sm btn-outline-green">View on GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -127,7 +175,7 @@
                         <p><strong>Tech Highlight:</strong> Engineered a 16-round Feistel network with zero-delay hardware permutations, parallel key scheduling, and custom non-linear S-Boxes for robust cryptanalysis resistance.</p>
                         <p><strong>Tech Stack:</strong> VHDL, ModelSim / Xcelium, Cryptographic RTL</p>
                         <div class="mt-auto">
-                            <a href="https://github.com/demosbarpas-hub/des-hardware-accelerator" target="_blank" class="btn btn-sm btn-outline-dark">View on GitHub</a>
+                            <a href="https://github.com/demosbarpas-hub/des-hardware-accelerator" target="_blank" class="btn btn-sm btn-outline-green">View on GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -140,7 +188,7 @@
                         <p><strong>Tech Highlight:</strong> Engineered a secure CRUD backend with live EGSA '87 to WGS84 coordinate transformations for Leaflet mapping, in-browser PDF rendering, and automated bash-level database backups.</p>
                         <p><strong>Tech Stack:</strong> Python, Flask, MySQL, pyproj, Leaflet.js</p>
                         <div class="mt-auto">
-                            <a href="https://github.com/demosbarpas-hub/attica-bridge-monitoring-platform" target="_blank" class="btn btn-sm btn-outline-dark">View on GitHub</a>
+                            <a href="https://github.com/demosbarpas-hub/attica-bridge-monitoring-platform" target="_blank" class="btn btn-sm btn-outline-green">View on GitHub</a>
                         </div>
                     </div>
                 </div>
