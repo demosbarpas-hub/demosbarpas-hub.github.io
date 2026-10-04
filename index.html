@@ -349,5 +349,25 @@
         </div>
     </footer>
 
+    <!-- Zero-dependency script for preconnecting on card hover/touch -->
+    <script>
+        (() => {
+            let connected = false;
+            const preconnectGithub = () => {
+                if (connected) return;
+                connected = true;
+                const link = document.createElement('link');
+                link.rel = 'preconnect';
+                link.href = 'https://github.com';
+                link.crossOrigin = 'anonymous';
+                document.head.appendChild(link);
+            };
+
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('pointerenter', preconnectGithub, { once: true, passive: true });
+                card.addEventListener('touchstart', preconnectGithub, { once: true, passive: true });
+            });
+        })();
+    </script>
 </body>
 </html>
