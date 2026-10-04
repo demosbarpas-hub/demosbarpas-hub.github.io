@@ -5,17 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demos Barpas | Hardware Engineer & Systems Architect</title>
     
-    <!-- Social Media Preview (Open Graph) -->
-    <meta property="og:title" content="Demos Barpas | Hardware Engineer & Systems Architect">
-    <meta property="og:description" content="Bridging the gap between physical ASIC design and full-stack software deployment.">
-    <meta property="og:image" content="https://demosbarpas.com/thumbnail.jpg">
-    <meta property="og:url" content="https://demosbarpas.com">
-    <meta property="og:type" content="website">
-
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
-        /* 1. CSS Variables & System Fonts (Zero external requests) */
+        /* 1. CSS Variables & System Fonts */
         :root {
             --primary-green: #2e7d32;
             --dark-green: #1b5e20;
@@ -25,12 +18,10 @@
             --bg-light: #f8f9fa;
         }
 
-        /* Modern reset */
         *, *::before, *::after { box-sizing: border-box; }
         body, h1, h2, h3, h4, p { margin: 0; padding: 0; }
         
         body {
-            /* System font stack: loads instantly without downloading font files */
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             color: var(--text-dark);
             background-color: var(--bg-light);
@@ -39,7 +30,7 @@
 
         a { text-decoration: none; }
         
-        /* 2. Layout & Containers (Replaces Bootstrap Grid) */
+        /* 2. Layout & Containers */
         .container {
             max-width: 1140px;
             margin: 0 auto;
@@ -93,7 +84,7 @@
             margin: 0 auto;
         }
 
-        /* 4. Buttons (Replaces Bootstrap btn classes) */
+        /* 4. Buttons */
         .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
         .btn {
             display: inline-block;
@@ -120,7 +111,7 @@
         .btn-small { font-size: 0.875rem; padding: 0.4rem 0.8rem; }
         .btn-disabled { background-color: #e9ecef; color: #6c757d; border: 1px solid #dee2e6; cursor: not-allowed; }
 
-        /* 5. Projects Grid (Auto-responsive without media queries) */
+        /* 5. Projects Grid */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -207,7 +198,7 @@
                 grid-template-columns: 1fr;
                 text-align: center;
             }
-            .hero-grid .headshot-container { order: -1; } /* Puts image on top on mobile */
+            .hero-grid .headshot-container { order: -1; }
             .btn-group { justify-content: center; }
             .hero-content h1 { font-size: 2.5rem; }
         }
@@ -215,7 +206,6 @@
 </head>
 <body>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container hero-grid">
             <div class="hero-content">
@@ -233,18 +223,16 @@
                 </div>
             </div>
             <div class="headshot-container">
-                <img src="profile.png" alt="Demos Barpas" class="headshot">
+                <img src="profile.webp" alt="Demos Barpas" class="headshot">
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
     <section>
         <div class="container">
             <h2 class="section-title">Engineering Portfolio</h2>
             <div class="projects-grid">
                 
-                <!-- Project 1 -->
                 <article class="card">
                     <div class="card-header">
                         <h3>Multi-Core RISC-V JPEG Accelerator</h3>
@@ -257,7 +245,6 @@
                     </div>
                 </article>
 
-                <!-- Project 2 -->
                 <article class="card">
                     <div class="card-header">
                         <h3>Custom Modulo Adders & ASIC Flow</h3>
@@ -270,7 +257,6 @@
                     </div>
                 </article>
 
-                <!-- Project 3 -->
                 <article class="card">
                     <div class="card-header">
                         <h3>Triple DES (TDEA) Cryptographic Accelerator</h3>
@@ -283,7 +269,6 @@
                     </div>
                 </article>
 
-                <!-- Project 4 -->
                 <article class="card">
                     <div class="card-header">
                         <h3>Attica Region Geospatial Platform</h3>
@@ -300,7 +285,6 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section class="bg-white">
         <div class="container">
             <h2 class="section-title text-center">Technical Arsenal</h2>
@@ -345,7 +329,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <p>&copy; 2026 Demos Barpas. All Rights Reserved.</p>
