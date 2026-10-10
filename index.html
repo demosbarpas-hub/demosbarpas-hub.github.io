@@ -81,14 +81,18 @@
             margin-bottom: 2rem;
             color: var(--text-dark);
         }
-        .headshot {
-            width: 100%;
-            max-width: 450px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(46, 125, 50, 0.15);
-            display: block;
-            margin: 0 auto;
-        }
+ .headshot {
+    width: 100%;
+    max-width: 450px;
+    height: auto;              /* Allows height to scale proportionally with width */
+    aspect-ratio: 1 / 1;       /* Guarantees a 1:1 square frame */
+    object-fit: cover;         /* Prevents squishing/stretching if the source isn't square */
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.15);
+    display: block;
+    margin: 0 auto;
+}
+
 
         /* 4. Buttons */
         .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
