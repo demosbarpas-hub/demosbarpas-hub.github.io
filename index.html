@@ -4,159 +4,346 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demos Barpas | Hardware Engineer</title>
-    <meta name="description" content="Demos Barpas, hardware engineer. Digital design, ASIC flow and RISC-V.">
+    <meta name="description" content="Demos Barpas, hardware engineer. Digital design, ASIC implementation and RISC-V.">
+    <meta name="theme-color" content="#1b5e20">
+
+    <!-- Load the photo early and warm up GitHub/LinkedIn connections -->
+    <link rel="preload" as="image" href="profile.webp" fetchpriority="high">
+    <link rel="preconnect" href="https://github.com" crossorigin>
+    <link rel="dns-prefetch" href="https://github.com">
+    <link rel="preconnect" href="https://linkedin.com" crossorigin>
+    <link rel="dns-prefetch" href="https://linkedin.com">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
         :root {
-            --accent: #2e7d32;
-            --text: #222;
-            --muted: #666;
-            --line: #e5e5e5;
-            --bg: #fff;
+            --green: #2e7d32;
+            --green-dark: #1b5e20;
+            --green-light: #e8f5e9;
+            --text: #1f2421;
+            --muted: #5f6661;
+            --bg: #f7f9f7;
+            --line: #e4e9e5;
         }
 
-        * { box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; }
+        body, h1, h2, h3, h4, p { margin: 0; }
         body {
-            margin: 0;
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
             color: var(--text);
             background: var(--bg);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
-        a { color: var(--accent); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        h1, h2, h3, p { margin: 0; }
+        a { text-decoration: none; color: inherit; }
+        img { display: block; max-width: 100%; }
 
-        .container { max-width: 860px; margin: 0 auto; padding: 0 1.25rem; }
-        section { padding: 3rem 0; border-top: 1px solid var(--line); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+        section { padding: 4.5rem 0; }
+        .section-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--green-dark);
+            margin-bottom: 2rem;
+        }
 
-        /* Header */
-        header { padding: 4rem 0 3rem; }
-        .intro { display: flex; align-items: center; gap: 2.5rem; }
+        /* Hero */
+        .hero { background: #fff; border-bottom: 1px solid var(--line); padding: 5rem 0; }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+        .hero h1 {
+            font-size: clamp(2.4rem, 5vw, 3.25rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+        }
+        .hero h2 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin: 0.5rem 0 1.25rem;
+        }
+        .hero h2 span { color: var(--green); font-weight: 600; }
+        .hero p { font-size: 1.125rem; max-width: 34rem; margin-bottom: 2rem; }
         .headshot {
-            width: 160px; height: 160px; object-fit: cover;
-            border-radius: 50%; flex-shrink: 0;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(46, 125, 50, 0.15);
+            margin: 0 auto;
         }
-        h1 { font-size: 2.25rem; font-weight: 700; }
-        .role { color: var(--muted); font-size: 1.15rem; margin: .25rem 0 1rem; }
-        .intro p.about { max-width: 36rem; }
-        .links { margin-top: 1rem; display: flex; gap: 1.25rem; font-weight: 600; }
+
+        /* Buttons */
+        .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.4rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid var(--green);
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .btn-primary { background: var(--green); color: #fff; }
+        .btn-primary:hover { background: var(--green-dark); border-color: var(--green-dark); }
+        .btn-outline { color: var(--green); }
+        .btn-outline:hover { background: var(--green); color: #fff; }
+        .btn-small { font-size: 0.875rem; padding: 0.4rem 0.9rem; border-width: 1.5px; }
 
         /* Projects */
-        h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; }
-        .project { padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
-        .project:last-child { border-bottom: none; }
-        .project-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
-        .project h3 { font-size: 1.1rem; font-weight: 600; }
-        .project .meta { color: var(--muted); font-size: .9rem; white-space: nowrap; }
-        .project p { margin: .4rem 0; }
-        .project .stack { color: var(--muted); font-size: .9rem; }
-        .project .project-links { margin-top: .4rem; font-size: .95rem; display: flex; gap: 1.25rem; }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-top: 4px solid transparent;
+            border-radius: 12px;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s, box-shadow 0.2s, border-top-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(46, 125, 50, 0.1);
+            border-top-color: var(--green);
+        }
+        .card.wide { grid-column: 1 / -1; }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .card h3 { font-size: 1.2rem; font-weight: 700; line-height: 1.35; }
+        .badge {
+            background: var(--green-light);
+            color: var(--green-dark);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .card p { color: var(--muted); margin-bottom: 1.25rem; }
+        .stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+        .stack span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--green-dark);
+            background: var(--bg);
+            border: 1px solid var(--line);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+        }
+        .card .btn-group { margin-top: auto; }
 
         /* Skills */
-        .skills { display: grid; grid-template-columns: 140px 1fr; row-gap: .6rem; }
-        .skills dt { font-weight: 600; }
-        .skills dd { margin: 0; color: var(--muted); }
+        .skills-section { background: #fff; border-top: 1px solid var(--line); }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .skills-category h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 0.9rem;
+        }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .skill-badge {
+            background: var(--green-light);
+            color: var(--green-dark);
+            padding: 0.45rem 0.95rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
 
-        footer { border-top: 1px solid var(--line); padding: 1.5rem 0; color: var(--muted); font-size: .875rem; }
+        /* Footer */
+        footer {
+            background: var(--green-dark);
+            color: #fff;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+        footer .container { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        footer nav { display: flex; gap: 1.5rem; }
+        footer a { opacity: 0.85; }
+        footer a:hover { opacity: 1; text-decoration: underline; }
 
-        @media (max-width: 640px) {
-            .intro { flex-direction: column; text-align: center; gap: 1.5rem; }
-            .links { justify-content: center; }
-            .project-head { flex-direction: column; gap: 0; }
-            .skills { grid-template-columns: 1fr; row-gap: .2rem; }
-            .skills dd { margin-bottom: .6rem; }
+        /* Tablets and phones */
+        @media (max-width: 900px) {
+            .projects-grid { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+        }
+        @media (max-width: 768px) {
+            section { padding: 3.5rem 0; }
+            .hero { padding: 3rem 0; }
+            .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+            .hero-grid .photo { order: -1; }
+            .headshot { max-width: 260px; }
+            .hero p { margin-left: auto; margin-right: auto; }
+            .hero .btn-group { justify-content: center; }
+            .card { padding: 1.4rem; }
+            .card-header { flex-direction: column; gap: 0.5rem; }
+            footer .container { flex-direction: column; text-align: center; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .card, .btn { transition: none; }
+            .card:hover { transform: none; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container intro">
-            <img src="profile.webp" alt="Demos Barpas" class="headshot" width="160" height="160">
+    <!-- Hero -->
+    <header class="hero">
+        <div class="container hero-grid">
             <div>
                 <h1>Demos Barpas</h1>
-                <p class="role">Hardware Engineer</p>
-                <p class="about">Electrical and Computer Engineering graduate from the University of Patras. I work on digital design, ASIC implementation and low-level software for RISC-V.</p>
-                <div class="links">
-                    <a href="https://github.com/demosbarpas-hub" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="https://linkedin.com/in/demosbarpas" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <h2><span>Hardware Engineer</span> &middot; RISC-V &amp; ASIC</h2>
+                <p>I design digital hardware and write the low-level software that runs on it, from RTL and chip layout to optimized RISC-V code.</p>
+                <div class="btn-group">
+                    <a href="https://github.com/demosbarpas-hub" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View GitHub</a>
+                    <a href="https://linkedin.com/in/demosbarpas" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Connect on LinkedIn</a>
                 </div>
+            </div>
+            <div class="photo">
+                <img src="profile.webp" alt="Demos Barpas" class="headshot" width="400" height="400" fetchpriority="high" decoding="async">
             </div>
         </div>
     </header>
 
     <main>
+        <!-- Projects -->
         <section>
             <div class="container">
-                <h2>Projects</h2>
+                <h2 class="section-title">Projects</h2>
+                <div class="projects-grid">
 
-                <div class="project">
-                    <div class="project-head">
-                        <h3>JPEG Encoder on a Multi-Core RISC-V Cluster</h3>
-                        <span class="meta">Diploma thesis, 2026</span>
-                    </div>
-                    <p>A JPEG encoder for the 8-core Snitch RISC-V cluster, optimized with stream registers, hardware loops and FP16 SIMD. It runs 4.4 times faster than the plain C version on a single core.</p>
-                    <p class="stack">C, RISC-V assembly, Python, Verilator</p>
-                    <div class="project-links">
-                        <a href="https://github.com/demosbarpas-hub/snitch-jpeg-encoder" target="_blank" rel="noopener noreferrer">Code</a>
-                        <a href="https://github.com/demosbarpas-hub/snitch-jpeg-encoder/blob/main/docs/thesis_karamparpas.pdf" target="_blank" rel="noopener noreferrer">Thesis (PDF)</a>
-                    </div>
-                </div>
+                    <article class="card wide">
+                        <div class="card-header">
+                            <h3>JPEG Encoder on a Multi-Core RISC-V Cluster</h3>
+                            <span class="badge">Diploma Thesis 2026</span>
+                        </div>
+                        <p>A full JPEG encoder for the 8-core Snitch RISC-V cluster, optimized with stream registers, hardware loops and FP16 SIMD. On a single core it runs 4.4 times faster than the plain C version.</p>
+                        <div class="stack">
+                            <span>C</span><span>RISC-V Assembly</span><span>Python</span><span>Verilator</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="https://github.com/demosbarpas-hub/snitch-jpeg-encoder" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-primary">View on GitHub</a>
+                            <a href="https://github.com/demosbarpas-hub/snitch-jpeg-encoder/blob/main/docs/thesis_karamparpas.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">Read the Thesis</a>
+                        </div>
+                    </article>
 
-                <div class="project">
-                    <div class="project-head">
-                        <h3>Modulo Adders and ASIC Flow</h3>
-                    </div>
-                    <p>Modulo adders (mod 5, 9, 14, 15) taken from VHDL through synthesis and place-and-route at 45 nm and 7 nm.</p>
-                    <p class="stack">VHDL, Cadence Genus, Innovus, LEC</p>
-                    <div class="project-links">
-                        <a href="https://github.com/demosbarpas-hub/vlsi-modulo-adders-asic" target="_blank" rel="noopener noreferrer">Code</a>
-                    </div>
-                </div>
+                    <article class="card">
+                        <div class="card-header">
+                            <h3>Modulo Adders &amp; ASIC Flow</h3>
+                        </div>
+                        <p>Custom modulo adders (mod 5, 9, 14, 15) taken from VHDL through synthesis and place-and-route at 45 nm and 7 nm.</p>
+                        <div class="stack">
+                            <span>VHDL</span><span>Cadence Genus</span><span>Innovus</span><span>LEC</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="https://github.com/demosbarpas-hub/vlsi-modulo-adders-asic" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">View on GitHub</a>
+                        </div>
+                    </article>
 
-                <div class="project">
-                    <div class="project-head">
-                        <h3>Triple DES Hardware Accelerator</h3>
-                    </div>
-                    <p>DES and Triple DES implemented in VHDL, with a 16-round Feistel datapath and on-the-fly key scheduling.</p>
-                    <p class="stack">VHDL, ModelSim, Xcelium</p>
-                    <div class="project-links">
-                        <a href="https://github.com/demosbarpas-hub/des-hardware-accelerator" target="_blank" rel="noopener noreferrer">Code</a>
-                    </div>
-                </div>
+                    <article class="card">
+                        <div class="card-header">
+                            <h3>Triple DES Hardware Accelerator</h3>
+                        </div>
+                        <p>DES and Triple DES in VHDL, built around a 16-round Feistel datapath with on-the-fly key scheduling.</p>
+                        <div class="stack">
+                            <span>VHDL</span><span>ModelSim</span><span>Xcelium</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="https://github.com/demosbarpas-hub/des-hardware-accelerator" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">View on GitHub</a>
+                        </div>
+                    </article>
 
-                <div class="project">
-                    <div class="project-head">
-                        <h3>Attica Bridge Monitoring Platform</h3>
-                    </div>
-                    <p>A web application for the Region of Attica to manage bridge records, maps and inspection documents.</p>
-                    <p class="stack">Python, Flask, MySQL, Leaflet</p>
-                    <div class="project-links">
-                        <a href="https://github.com/demosbarpas-hub/attica-bridge-monitoring-platform" target="_blank" rel="noopener noreferrer">Code</a>
-                    </div>
+                    <article class="card wide">
+                        <div class="card-header">
+                            <h3>Attica Bridge Monitoring Platform</h3>
+                        </div>
+                        <p>A web platform for the Region of Attica to manage its bridges, with interactive maps, inspection documents and automatic backups.</p>
+                        <div class="stack">
+                            <span>Python</span><span>Flask</span><span>MySQL</span><span>Leaflet</span>
+                        </div>
+                        <div class="btn-group">
+                            <a href="https://github.com/demosbarpas-hub/attica-bridge-monitoring-platform" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">View on GitHub</a>
+                        </div>
+                    </article>
+
                 </div>
             </div>
         </section>
 
-        <section>
+        <!-- Skills -->
+        <section class="skills-section">
             <div class="container">
-                <h2>Skills</h2>
-                <dl class="skills">
-                    <dt>Hardware</dt>
-                    <dd>RTL design, ASIC physical design, RISC-V, hardware/software co-design</dd>
-                    <dt>Languages</dt>
-                    <dd>VHDL, Verilog, C, RISC-V assembly, Python, SQL</dd>
-                    <dt>Tools</dt>
-                    <dd>Cadence Genus, Innovus, LEC, Xcelium, ModelSim, Verilator, Linux, Git</dd>
-                </dl>
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skills-category">
+                        <h4>Hardware</h4>
+                        <div class="skill-tags">
+                            <span class="skill-badge">RTL Design</span>
+                            <span class="skill-badge">ASIC Physical Design</span>
+                            <span class="skill-badge">RISC-V</span>
+                            <span class="skill-badge">SIMD</span>
+                            <span class="skill-badge">HW/SW Co-design</span>
+                        </div>
+                    </div>
+                    <div class="skills-category">
+                        <h4>Languages</h4>
+                        <div class="skill-tags">
+                            <span class="skill-badge">VHDL</span>
+                            <span class="skill-badge">Verilog</span>
+                            <span class="skill-badge">C</span>
+                            <span class="skill-badge">RISC-V Assembly</span>
+                            <span class="skill-badge">Python</span>
+                            <span class="skill-badge">SQL</span>
+                        </div>
+                    </div>
+                    <div class="skills-category">
+                        <h4>Tools</h4>
+                        <div class="skill-tags">
+                            <span class="skill-badge">Cadence Genus</span>
+                            <span class="skill-badge">Innovus</span>
+                            <span class="skill-badge">Xcelium</span>
+                            <span class="skill-badge">Verilator</span>
+                            <span class="skill-badge">ModelSim</span>
+                            <span class="skill-badge">Linux / Git</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="container">&copy; 2026 Demos Barpas</div>
+        <div class="container">
+            <p>&copy; 2026 Demos Barpas</p>
+            <nav>
+                <a href="https://github.com/demosbarpas-hub" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://linkedin.com/in/demosbarpas" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </nav>
+        </div>
     </footer>
 
 </body>
