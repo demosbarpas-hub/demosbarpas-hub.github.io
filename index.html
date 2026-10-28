@@ -4,359 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demos Barpas | Hardware Engineer</title>
-    <meta name="description" content="Demos Barpas, hardware engineer. RTL, ASIC flow and RISC-V software.">
-    <meta property="og:title" content="Demos Barpas | Hardware Engineer">
-    <meta property="og:description" content="I design digital hardware and write the low-level code that runs on it.">
-    <meta property="og:image" content="profile.webp">
-
-    <link rel="preconnect" href="https://github.com" crossorigin>
-    <link rel="dns-prefetch" href="https://github.com">
+    <meta name="description" content="Demos Barpas, hardware engineer. Digital design, ASIC flow and RISC-V.">
     <link rel="icon" type="image/png" href="favicon.png">
 
     <style>
         :root {
-            --green: #2e7d32;
-            --green-dark: #1b5e20;
-            --green-soft: #e8f5e9;
-            --text: #1f2421;
-            --muted: #5f6b63;
-            --bg: #f6f8f6;
-            --surface: #ffffff;
-            --line: #e3e8e4;
-            --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(27,94,32,.06);
-            --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-        }
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --green: #66bb6a;
-                --green-dark: #a5d6a7;
-                --green-soft: #1d2b1e;
-                --text: #e6ebe7;
-                --muted: #9aa69d;
-                --bg: #111512;
-                --surface: #181d19;
-                --line: #263028;
-                --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
-            }
+            --accent: #2e7d32;
+            --text: #222;
+            --muted: #666;
+            --line: #e5e5e5;
+            --bg: #fff;
         }
 
-        *, *::before, *::after { box-sizing: border-box; }
-        body, h1, h2, h3, h4, p, ul { margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; }
         body {
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
             color: var(--text);
             background: var(--bg);
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
         }
-        a { color: inherit; text-decoration: none; }
-        img { max-width: 100%; display: block; }
-        .container { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
-        section { padding: 4.5rem 0; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        h1, h2, h3, p { margin: 0; }
 
-        /* Nav */
-        nav {
-            position: sticky; top: 0; z-index: 10;
-            background: color-mix(in srgb, var(--bg) 85%, transparent);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--line);
-        }
-        nav .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
-        .logo { font-weight: 800; letter-spacing: -.02em; }
-        .logo span { color: var(--green); }
-        .nav-links { display: flex; gap: 1.5rem; list-style: none; font-size: .95rem; }
-        .nav-links a { color: var(--muted); transition: color .15s; }
-        .nav-links a:hover { color: var(--green); }
+        .container { max-width: 860px; margin: 0 auto; padding: 0 1.25rem; }
+        section { padding: 3rem 0; border-top: 1px solid var(--line); }
 
-        /* Hero */
-        .hero { padding: 5rem 0 4rem; }
-        .hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3.5rem; align-items: center; }
-        .eyebrow {
-            font-family: var(--mono); font-size: .85rem; color: var(--green);
-            margin-bottom: .75rem; display: inline-block;
-        }
-        .hero h1 { font-size: clamp(2.4rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -.03em; }
-        .hero .role { font-size: 1.25rem; color: var(--muted); margin: .75rem 0 1.25rem; }
-        .hero .lead { font-size: 1.1rem; max-width: 34rem; margin-bottom: 2rem; }
+        /* Header */
+        header { padding: 4rem 0 3rem; }
+        .intro { display: flex; align-items: center; gap: 2.5rem; }
         .headshot {
-            width: 100%; max-width: 380px; aspect-ratio: 1 / 1; object-fit: cover;
-            border-radius: 16px; margin: 0 auto; box-shadow: var(--shadow);
-            border: 1px solid var(--line);
+            width: 160px; height: 160px; object-fit: cover;
+            border-radius: 50%; flex-shrink: 0;
         }
-
-        /* Buttons */
-        .btn-group { display: flex; gap: .75rem; flex-wrap: wrap; }
-        .btn {
-            display: inline-flex; align-items: center; gap: .5rem;
-            padding: .7rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 1rem;
-            border: 2px solid var(--green); transition: background .15s, color .15s, transform .15s;
-        }
-        .btn:hover { transform: translateY(-1px); }
-        .btn-primary { background: var(--green); color: #fff; }
-        .btn-primary:hover { background: var(--green-dark); border-color: var(--green-dark); }
-        .btn-outline { color: var(--green); }
-        .btn-outline:hover { background: var(--green); color: #fff; }
-        @media (prefers-color-scheme: dark) {
-            .btn-primary { color: #0f1a10; }
-            .btn-outline:hover { color: #0f1a10; }
-        }
-        .btn-small { font-size: .875rem; padding: .4rem .85rem; border-width: 1.5px; }
-        .btn svg { width: 1.1em; height: 1.1em; fill: currentColor; }
-
-        /* Section titles */
-        .section-title { font-size: 1.75rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: .4rem; }
-        .section-sub { color: var(--muted); margin-bottom: 2.25rem; }
+        h1 { font-size: 2.25rem; font-weight: 700; }
+        .role { color: var(--muted); font-size: 1.15rem; margin: .25rem 0 1rem; }
+        .intro p.about { max-width: 36rem; }
+        .links { margin-top: 1rem; display: flex; gap: 1.25rem; font-weight: 600; }
 
         /* Projects */
-        .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-        .card {
-            background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
-            padding: 1.75rem; display: flex; flex-direction: column; gap: .9rem;
-            box-shadow: var(--shadow); transition: transform .2s, border-color .2s;
-        }
-        .card:hover { transform: translateY(-3px); border-color: var(--green); }
-        .card.featured { grid-column: 1 / -1; }
-        .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
-        .card h3 { font-size: 1.2rem; font-weight: 700; letter-spacing: -.01em; }
-        .badge {
-            font-family: var(--mono); font-size: .75rem; font-weight: 600; white-space: nowrap;
-            background: var(--green-soft); color: var(--green-dark);
-            padding: .25rem .55rem; border-radius: 6px;
-        }
-        .card p { color: var(--muted); }
-        .stats { display: flex; gap: 2rem; flex-wrap: wrap; padding: .25rem 0; }
-        .stat strong { display: block; font-size: 1.6rem; font-weight: 800; color: var(--green); line-height: 1.1; }
-        .stat span { font-size: .85rem; color: var(--muted); }
-        .tags { display: flex; flex-wrap: wrap; gap: .4rem; }
-        .tag {
-            font-family: var(--mono); font-size: .75rem; color: var(--muted);
-            border: 1px solid var(--line); padding: .15rem .5rem; border-radius: 5px;
-        }
-        .card .links { margin-top: auto; padding-top: .5rem; display: flex; gap: .5rem; flex-wrap: wrap; }
+        h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .project { padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
+        .project:last-child { border-bottom: none; }
+        .project-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+        .project h3 { font-size: 1.1rem; font-weight: 600; }
+        .project .meta { color: var(--muted); font-size: .9rem; white-space: nowrap; }
+        .project p { margin: .4rem 0; }
+        .project .stack { color: var(--muted); font-size: .9rem; }
+        .project .project-links { margin-top: .4rem; font-size: .95rem; display: flex; gap: 1.25rem; }
 
         /* Skills */
-        .skills { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .skills-category h4 {
-            font-family: var(--mono); font-size: .8rem; text-transform: uppercase; letter-spacing: .08em;
-            color: var(--muted); margin-bottom: .9rem;
-        }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
-        .skill-badge {
-            background: var(--green-soft); color: var(--green-dark);
-            padding: .4rem .85rem; border-radius: 999px; font-size: .9rem; font-weight: 600;
-        }
+        .skills { display: grid; grid-template-columns: 140px 1fr; row-gap: .6rem; }
+        .skills dt { font-weight: 600; }
+        .skills dd { margin: 0; color: var(--muted); }
 
-        /* Contact + footer */
-        .contact { text-align: center; }
-        .contact p { color: var(--muted); margin-bottom: 1.5rem; }
-        .contact .btn-group { justify-content: center; }
-        footer { border-top: 1px solid var(--line); padding: 1.75rem 0; font-size: .875rem; color: var(--muted); text-align: center; }
+        footer { border-top: 1px solid var(--line); padding: 1.5rem 0; color: var(--muted); font-size: .875rem; }
 
-        /* Mobile */
-        @media (max-width: 820px) {
-            .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
-            .hero .lead { margin-left: auto; margin-right: auto; }
-            .headshot { max-width: 220px; order: -1; }
-            .hero-grid > :last-child { order: -1; }
-            .btn-group { justify-content: center; }
-            .projects-grid, .skills-grid { grid-template-columns: 1fr; }
-            .nav-links { gap: 1rem; font-size: .9rem; }
-            .nav-links li:last-child { display: none; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            .card, .btn { transition: none; }
+        @media (max-width: 640px) {
+            .intro { flex-direction: column; text-align: center; gap: 1.5rem; }
+            .links { justify-content: center; }
+            .project-head { flex-direction: column; gap: 0; }
+            .skills { grid-template-columns: 1fr; row-gap: .2rem; }
+            .skills dd { margin-bottom: .6rem; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="container">
-            <a href="#top" class="logo">Demos<span>.</span>Barpas</a>
-            <ul class="nav-links">
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <header class="hero" id="top">
-        <div class="container hero-grid">
+    <header>
+        <div class="container intro">
+            <img src="profile.webp" alt="Demos Barpas" class="headshot" width="160" height="160">
             <div>
-                <span class="eyebrow">// ECE, University of Patras</span>
                 <h1>Demos Barpas</h1>
                 <p class="role">Hardware Engineer</p>
-                <p class="lead">I design digital hardware and write the low-level code that runs on it, from RTL and chip layout to RISC-V assembly.</p>
-                <div class="btn-group">
-                    <a href="https://github.com/demosbarpas-hub" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-                        GitHub
-                    </a>
-                    <a href="https://linkedin.com/in/demosbarpas" target="_blank" rel="noopener noreferrer" class="btn btn-outline">LinkedIn</a>
+                <p class="about">Electrical and Computer Engineering graduate from the University of Patras. I work on digital design, ASIC implementation and low-level software for RISC-V.</p>
+                <div class="links">
+                    <a href="https://github.com/demosbarpas-hub" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://linkedin.com/in/demosbarpas" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 </div>
-            </div>
-            <div>
-                <img src="profile.webp" alt="Demos Barpas" class="headshot" width="380" height="380">
             </div>
         </div>
     </header>
 
     <main>
-        <section id="projects">
+        <section>
             <div class="container">
-                <h2 class="section-title">Projects</h2>
-                <p class="section-sub">Things I've built, from silicon to the browser.</p>
+                <h2>Projects</h2>
 
-                <div class="projects-grid">
-
-                    <article class="card featured">
-                        <div class="card-top">
-                            <h3>JPEG Encoder on a Multi-Core RISC-V Cluster</h3>
-                            <span class="badge">Diploma thesis · 2026</span>
-                        </div>
-                        <p>A full JPEG encoder for the 8-core Snitch RISC-V cluster, hand-tuned with stream registers, hardware loops and FP16 SIMD.</p>
-                        <div class="stats">
-                            <div class="stat"><strong>4.4×</strong><span>faster than plain C on one core</span></div>
-                            <div class="stat"><strong>8 cores</strong><span>running in parallel</span></div>
-                            <div class="stat"><strong>Bit-exact</strong><span>checked against a Python model</span></div>
-                        </div>
-                        <div class="tags">
-                            <span class="tag">C</span><span class="tag">RISC-V asm</span><span class="tag">SSR / FREP</span>
-                            <span class="tag">DMA</span><span class="tag">Verilator</span><span class="tag">Python</span>
-                        </div>
-                        <div class="links">
-                            <a href="https://github.com/demosbarpas-hub/snitch-jpeg-encoder" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-primary">View on GitHub</a>
-                            <a href="https://github.com/demosbarpas-hub/snitch-jpeg-encoder/blob/main/docs/thesis_karamparpas.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">Read the thesis</a>
-                        </div>
-                    </article>
-
-                    <article class="card">
-                        <div class="card-top">
-                            <h3>Modulo Adders &amp; ASIC Flow</h3>
-                        </div>
-                        <p>Custom modulo adders (mod 5, 9, 14, 15) taken from VHDL all the way to placed-and-routed layout at 45 nm and 7 nm.</p>
-                        <div class="tags">
-                            <span class="tag">VHDL</span><span class="tag">Genus</span><span class="tag">Innovus</span>
-                            <span class="tag">LEC</span><span class="tag">ASAP7</span>
-                        </div>
-                        <div class="links">
-                            <a href="https://github.com/demosbarpas-hub/vlsi-modulo-adders-asic" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">View on GitHub</a>
-                        </div>
-                    </article>
-
-                    <article class="card">
-                        <div class="card-top">
-                            <h3>Triple DES Hardware Accelerator</h3>
-                        </div>
-                        <p>DES and Triple DES in VHDL: a 16-round Feistel datapath with on-the-fly key scheduling.</p>
-                        <div class="tags">
-                            <span class="tag">VHDL</span><span class="tag">ModelSim</span><span class="tag">Xcelium</span>
-                        </div>
-                        <div class="links">
-                            <a href="https://github.com/demosbarpas-hub/des-hardware-accelerator" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">View on GitHub</a>
-                        </div>
-                    </article>
-
-                    <article class="card featured">
-                        <div class="card-top">
-                            <h3>Attica Bridge Monitoring Platform</h3>
-                            <span class="badge">In use</span>
-                        </div>
-                        <p>A web app the Region of Attica uses to manage its bridges, with maps, inspection documents and automatic backups.</p>
-                        <div class="tags">
-                            <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">MySQL</span>
-                            <span class="tag">Leaflet</span><span class="tag">pyproj</span>
-                        </div>
-                        <div class="links">
-                            <a href="https://github.com/demosbarpas-hub/attica-bridge-monitoring-platform" target="_blank" rel="noopener noreferrer" class="btn btn-small btn-outline">View on GitHub</a>
-                        </div>
-                    </article>
-
+                <div class="project">
+                    <div class="project-head">
+                        <h3>JPEG Encoder on a Multi-Core RISC-V Cluster</h3>
+                        <span class="meta">Diploma thesis, 2026</span>
+                    </div>
+                    <p>A JPEG encoder for the 8-core Snitch RISC-V cluster, optimized with stream registers, hardware loops and FP16 SIMD. It runs 4.4 times faster than the plain C version on a single core.</p>
+                    <p class="stack">C, RISC-V assembly, Python, Verilator</p>
+                    <div class="project-links">
+                        <a href="https://github.com/demosbarpas-hub/snitch-jpeg-encoder" target="_blank" rel="noopener noreferrer">Code</a>
+                        <a href="https://github.com/demosbarpas-hub/snitch-jpeg-encoder/blob/main/docs/thesis_karamparpas.pdf" target="_blank" rel="noopener noreferrer">Thesis (PDF)</a>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <section class="skills" id="skills">
-            <div class="container">
-                <h2 class="section-title">Skills</h2>
-                <p class="section-sub">What I work with day to day.</p>
-                <div class="skills-grid">
-                    <div class="skills-category">
-                        <h4>Hardware</h4>
-                        <div class="skill-tags">
-                            <span class="skill-badge">RTL Design</span>
-                            <span class="skill-badge">ASIC Physical Design</span>
-                            <span class="skill-badge">RISC-V</span>
-                            <span class="skill-badge">SIMD / Vectorization</span>
-                            <span class="skill-badge">HW/SW Co-design</span>
-                        </div>
+                <div class="project">
+                    <div class="project-head">
+                        <h3>Modulo Adders and ASIC Flow</h3>
                     </div>
-                    <div class="skills-category">
-                        <h4>Languages</h4>
-                        <div class="skill-tags">
-                            <span class="skill-badge">VHDL</span>
-                            <span class="skill-badge">Verilog</span>
-                            <span class="skill-badge">C</span>
-                            <span class="skill-badge">RISC-V Assembly</span>
-                            <span class="skill-badge">Python</span>
-                            <span class="skill-badge">SQL</span>
-                        </div>
+                    <p>Modulo adders (mod 5, 9, 14, 15) taken from VHDL through synthesis and place-and-route at 45 nm and 7 nm.</p>
+                    <p class="stack">VHDL, Cadence Genus, Innovus, LEC</p>
+                    <div class="project-links">
+                        <a href="https://github.com/demosbarpas-hub/vlsi-modulo-adders-asic" target="_blank" rel="noopener noreferrer">Code</a>
                     </div>
-                    <div class="skills-category">
-                        <h4>Tools</h4>
-                        <div class="skill-tags">
-                            <span class="skill-badge">Cadence Genus</span>
-                            <span class="skill-badge">Innovus</span>
-                            <span class="skill-badge">Xcelium</span>
-                            <span class="skill-badge">Verilator</span>
-                            <span class="skill-badge">ModelSim</span>
-                            <span class="skill-badge">Linux / Git</span>
-                        </div>
+                </div>
+
+                <div class="project">
+                    <div class="project-head">
+                        <h3>Triple DES Hardware Accelerator</h3>
+                    </div>
+                    <p>DES and Triple DES implemented in VHDL, with a 16-round Feistel datapath and on-the-fly key scheduling.</p>
+                    <p class="stack">VHDL, ModelSim, Xcelium</p>
+                    <div class="project-links">
+                        <a href="https://github.com/demosbarpas-hub/des-hardware-accelerator" target="_blank" rel="noopener noreferrer">Code</a>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <div class="project-head">
+                        <h3>Attica Bridge Monitoring Platform</h3>
+                    </div>
+                    <p>A web application for the Region of Attica to manage bridge records, maps and inspection documents.</p>
+                    <p class="stack">Python, Flask, MySQL, Leaflet</p>
+                    <div class="project-links">
+                        <a href="https://github.com/demosbarpas-hub/attica-bridge-monitoring-platform" target="_blank" rel="noopener noreferrer">Code</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="contact" id="contact">
+        <section>
             <div class="container">
-                <h2 class="section-title">Get in touch</h2>
-                <p>Open to roles in digital design, verification and embedded systems.</p>
-                <div class="btn-group">
-                    <a href="https://linkedin.com/in/demosbarpas" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Message me on LinkedIn</a>
-                    <a href="https://github.com/demosbarpas-hub" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub</a>
-                </div>
+                <h2>Skills</h2>
+                <dl class="skills">
+                    <dt>Hardware</dt>
+                    <dd>RTL design, ASIC physical design, RISC-V, hardware/software co-design</dd>
+                    <dt>Languages</dt>
+                    <dd>VHDL, Verilog, C, RISC-V assembly, Python, SQL</dd>
+                    <dt>Tools</dt>
+                    <dd>Cadence Genus, Innovus, LEC, Xcelium, ModelSim, Verilator, Linux, Git</dd>
+                </dl>
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Demos Barpas</p>
-        </div>
+        <div class="container">&copy; 2026 Demos Barpas</div>
     </footer>
 
-    <script>
-        // Warm up the GitHub connection when a project card is hovered or touched
-        (() => {
-            let done = false;
-            const warm = () => {
-                if (done) return;
-                done = true;
-                const l = document.createElement('link');
-                l.rel = 'preconnect';
-                l.href = 'https://github.com';
-                l.crossOrigin = 'anonymous';
-                document.head.appendChild(l);
-            };
-            document.querySelectorAll('.card').forEach(c => {
-                c.addEventListener('pointerenter', warm, { once: true, passive: true });
-                c.addEventListener('touchstart', warm, { once: true, passive: true });
-            });
-        })();
-    </script>
 </body>
 </html>
